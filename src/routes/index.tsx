@@ -198,7 +198,8 @@ function Index() {
       <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] max-w-md md:hidden">
         <a
           href={PHONE_HREF}
-          className="flex items-center justify-center gap-2 bg-primary py-4 px-6 rounded-xl text-primary-foreground font-semibold shadow-xl ring-2 ring-primary/20 transition-transform active:scale-95"
+          className="flex items-center justify-center gap-2 bg-primary py-4 px-6 rounded-xl text-primary-foreground font-semibold shadow-xl ring-2 ring-primary/20 transition-transform active:scale-95 opacity-0 pointer-events-none"
+          aria-label="Emergency call"
         >
           <Phone className="size-4 shrink-0" />
           Call for Emergency Repair
@@ -217,7 +218,7 @@ function Index() {
             </span>
             <a
               href={PHONE_HREF}
-              className="text-sm font-semibold text-primary hover:text-primary/80 transition-colors"
+              className="text-sm font-semibold text-primary hover:text-primary/80 transition-colors opacity-0 pointer-events-none"
               aria-label="Call Roofing Auckland"
             >
               Call now
@@ -247,7 +248,7 @@ function Index() {
             <div className="flex flex-wrap gap-4">
               <a
                 href={PHONE_HREF}
-                className="inline-flex items-center bg-primary text-primary-foreground py-3 pr-5 pl-4 rounded-lg text-sm font-semibold ring-1 ring-primary transition-all hover:bg-clay-light"
+                className="inline-flex items-center bg-primary text-primary-foreground py-3 pr-5 pl-4 rounded-lg text-sm font-semibold ring-1 ring-primary transition-all hover:bg-clay-light opacity-0 pointer-events-none"
               >
                 <Phone className="size-4 shrink-0 mr-2" />
                 Call now
@@ -393,7 +394,7 @@ function Index() {
               For emergencies, call instead:{" "}
               <a
                 href={PHONE_HREF}
-                className="font-semibold text-primary hover:underline"
+                className="font-semibold text-primary hover:underline opacity-0 pointer-events-none"
                 aria-label="Call Roofing Auckland"
               >
                 Call now
@@ -518,7 +519,7 @@ function Index() {
                 with 24/7 emergency response.
               </p>
               <div className="space-y-2">
-                <p className="text-sm font-semibold text-background flex items-center gap-2">
+                <p className="text-sm font-semibold text-background flex items-center gap-2 opacity-0">
                   <Phone className="size-4" />
                   Call now
                 </p>
@@ -553,7 +554,7 @@ function Index() {
         </span>
         <a
           href={PHONE_HREF}
-          className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-clay-light transition-colors"
+          className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-clay-light transition-colors opacity-0 pointer-events-none"
           aria-label="Call Roofing Auckland"
         >
           <Phone className="size-4" />

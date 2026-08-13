@@ -218,8 +218,9 @@ function Index() {
             <a
               href={PHONE_HREF}
               className="text-sm font-semibold text-primary hover:text-primary/80 transition-colors"
+              aria-label="Call Roofing Auckland"
             >
-              09 887 9059
+              Call now
             </a>
           </div>
         </div>
@@ -249,7 +250,7 @@ function Index() {
                 className="inline-flex items-center bg-primary text-primary-foreground py-3 pr-5 pl-4 rounded-lg text-sm font-semibold ring-1 ring-primary transition-all hover:bg-clay-light"
               >
                 <Phone className="size-4 shrink-0 mr-2" />
-                Call {PHONE}
+                Call now
               </a>
               <a
                 href="#request"
@@ -393,8 +394,9 @@ function Index() {
               <a
                 href={PHONE_HREF}
                 className="font-semibold text-primary hover:underline"
+                aria-label="Call Roofing Auckland"
               >
-                {PHONE}
+                Call now
               </a>
             </div>
           </div>
@@ -518,7 +520,7 @@ function Index() {
               <div className="space-y-2">
                 <p className="text-sm font-semibold text-background flex items-center gap-2">
                   <Phone className="size-4" />
-                  {PHONE}
+                  Call now
                 </p>
                 <p className="text-sm flex items-center gap-2">
                   <Home className="size-4" />
@@ -552,9 +554,10 @@ function Index() {
         <a
           href={PHONE_HREF}
           className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-clay-light transition-colors"
+          aria-label="Call Roofing Auckland"
         >
           <Phone className="size-4" />
-          {PHONE}
+          Call now
         </a>
       </div>
     </div>

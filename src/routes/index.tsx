@@ -497,59 +497,8 @@ function Index() {
       {/* Reviews */}
       <section id="reviews" className="py-24 bg-secondary">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-4">
-            <h2 className="font-sans text-3xl font-semibold">
-              What Aucklanders Say
-            </h2>
-            <div className="flex items-center gap-3">
-              <span className="font-sans font-semibold text-xl">Google</span>
-              <div className="flex items-center gap-2 px-3 py-1 bg-background rounded-full ring-1 ring-border">
-                <span className="font-semibold">5.0</span>
-                <div className="flex text-primary text-sm">★★★★★</div>
-              </div>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 divide-y md:divide-y-0 md:divide-x divide-border mb-12">
-            {reviews.map((review) => (
-              <div
-                key={review.name}
-                className="py-8 md:py-0 md:px-8 first:md:pl-0 last:md:pr-0"
-              >
-                <div className="flex text-primary text-sm mb-4">★★★★★</div>
-                <p className="text-foreground/80 italic text-pretty mb-6">
-                  “{review.text}”
-                </p>
-                <div className="flex items-center gap-3">
-                  <div className="size-10 rounded-full bg-muted flex items-center justify-center font-sans font-semibold text-sm text-muted-foreground">
-                    {review.name[0]}
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold">{review.name}</p>
-                    <p className="text-xs text-muted-foreground">{review.time}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* SociableKIT live widget container */}
           <div className="bg-card rounded-2xl ring-1 ring-border p-6 md:p-8">
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="font-sans font-semibold">Google Reviews</h3>
-              <a
-                href="https://www.google.com/search?q=Roofing+Auckland"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm font-semibold text-primary hover:underline"
-              >
-                Read all reviews
-              </a>
-            </div>
             <GoogleReviews />
-            <p className="text-xs text-muted-foreground mt-4 text-center">
-              Live reviews powered by Google
-            </p>
           </div>
         </div>
       </section>

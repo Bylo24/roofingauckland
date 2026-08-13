@@ -1,94 +1,73 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
-import { toast } from "sonner";
-import {
-  Phone,
-  Clock,
-  ShieldCheck,
-  Flame,
-  Droplets,
-  Wrench,
-  ShowerHead,
-  BadgeCheck,
-  MapPin,
-  Receipt,
-  Send,
-} from "lucide-react";
-
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import imgUnnamed11 from "@/assets/unnamed-11.jpeg";
-import imgUnnamed6 from "@/assets/unnamed-6.jpeg";
-
-const gallery = [
-  { src: imgUnnamed11, alt: "Recent work — job photo 11" },
-  { src: imgUnnamed6, alt: "Recent work — job photo 6" },
-];
-
-const PHONE = "64 9 8844104";
-const TEL = "tel:+6498844104";
+import { useState, useEffect } from "react";
+import { Phone, Shield, Clock, MapPin, Wrench, Droplets, Home, CheckCircle } from "lucide-react";
+import roofProfile from "@/assets/roof-profile.jpg";
+import guttering from "@/assets/guttering.jpg";
+import roofRepair from "@/assets/roof-repair.jpg";
+import { GoogleReviews } from "@/components/GoogleReviews";
 
 export const Route = createFileRoute("/")({
+  component: Index,
   head: () => ({
     meta: [
-      { title: "Papatoetoe Plumbing & Gas | 24/7 Emergency Plumber Auckland" },
+      { title: "Roofing Auckland | 24/7 Emergency Roofing & Re-Roofing" },
       {
         name: "description",
         content:
-          "24/7 emergency plumbing and gas fitting in Papatoetoe and South Auckland. Qualified, insured, local. Call +64 9 8844104 or request service online.",
+          "Roofing Auckland provides 24/7 emergency roofing, leak repairs, re-roofing, guttering and spouting across the North Shore and greater Auckland. Call 64 9 8879059.",
       },
       {
         property: "og:title",
-        content: "Papatoetoe Plumbing & Gas | 24/7 Emergency Plumber",
+        content: "Roofing Auckland | 24/7 Emergency Roofing & Re-Roofing",
       },
       {
         property: "og:description",
         content:
-          "Urgent leaks, blocked drains, hot water and gas fitting across Papatoetoe. Upfront pricing, 5.0 Google rating.",
+          "24/7 emergency roofing, leak repairs, re-roofing and guttering across Auckland. Qualified, insured, local.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: Index,
 });
 
-const jobs = [
+const PHONE = "64 9 8879059";
+const PHONE_HREF = "tel:6498879059";
+
+const services = [
   {
-    icon: Clock,
-    title: "Emergency plumbing",
-    text: "Burst pipes and urgent leaks, day or night.",
+    title: "Re-Roofing",
+    description:
+      "Full replacement for tile or metal roofs with modern long-run steel solutions built to last.",
+    image: roofProfile,
+    alt: "Close-up of a modern corrugated metal roof",
   },
   {
-    icon: Droplets,
-    title: "Leak repairs",
-    text: "Fast leak detection and permanent fixes.",
+    title: "Guttering & Spouting",
+    description:
+      "Custom-fit continuous spouting and downpipe systems to protect your foundation and cladding.",
+    image: guttering,
+    alt: "Clean modern guttering and downpipe on a residential home",
   },
   {
-    icon: Wrench,
-    title: "Blocked drains",
-    text: "Cleared with jetting and camera inspection.",
-  },
-  {
-    icon: Flame,
-    title: "Hot water",
-    text: "Cylinders, gas and continuous flow systems.",
-  },
-  {
-    icon: BadgeCheck,
-    title: "Gas fitting",
-    text: "Certified gas installs, servicing and checks.",
-  },
-  {
-    icon: ShowerHead,
-    title: "Bathrooms & fixtures",
-    text: "Taps, toilets, showers and renovations.",
+    title: "Emergency Repairs",
+    description:
+      "Immediate leak detection and temporary tarping for storm damage protection, 24/7.",
+    image: roofRepair,
+    alt: "Professional roofer repairing a roof leak",
   },
 ];
 
-const suburbs = [
+const commonJobs = [
+  "Emergency roofing",
+  "Leak repairs",
+  "Re-roofing",
+  "Guttering & spouting",
+  "Roof painting",
+  "Flashing repairs",
+];
+
+const serviceAreas = [
   "Albany",
   "Bayview",
   "Beach Haven",
@@ -121,348 +100,472 @@ const suburbs = [
   "Windsor Park",
 ];
 
-const serviceOptions = [
-  "Emergency plumbing",
-  "Leak repairs",
-  "Blocked drains",
-  "Hot water",
-  "Gas fitting",
-  "Bathrooms & fixtures",
-  "Other (describe if not listed)",
+const reviews = [
+  {
+    name: "Noela",
+    time: "2 weeks ago",
+    text: "Highly recommend! The roofing team was professional, reliable, and completed the job to a very high standard. Communication was excellent from start to finish, arrived on time, and left everything clean and tidy.",
+  },
+  {
+    name: "Logan",
+    time: "1 week ago",
+    text: "A++ we had the team come out with short notice. We had been having trouble with a leak in our roof after heavy rain. The crew had it sorted in no time. Would definitely recommend 👌.",
+  },
+  {
+    name: "Nikora",
+    time: "2 weeks ago",
+    text: "Had to call this crew in to fix someone else’s mistakes on my flashings. I should’ve just got them in the first place. Would highly recommend 10/10.",
+  },
+  {
+    name: "Tracey",
+    time: "3 weeks ago",
+    text: "Fantastic service from start to finish. The team was friendly, professional, and took the time to make sure everything was done to a high standard. Reliable, punctual, and genuinely cared about delivering a great result.",
+  },
 ];
 
-
 function Index() {
-  const [service, setService] = useState(serviceOptions[0]);
-  const [sending, setSending] = useState(false);
+  const [form, setForm] = useState({
+    name: "",
+    phone: "",
+    suburb: "",
+    service: "Emergency roofing",
+    message: "",
+  });
+  const [submitted, setSubmitted] = useState(false);
 
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const form = e.currentTarget;
-    const fd = new FormData(form);
-    setSending(true);
-    try {
-      const to = "samuelhowell247@gmail.com";
-      const postData = new FormData();
-      postData.append("name", String(fd.get("name") ?? ""));
-      postData.append("phone", String(fd.get("phone") ?? ""));
-      postData.append("suburb", String(fd.get("suburb") ?? ""));
-      postData.append("service", String(fd.get("service") ?? ""));
-      postData.append("details", String(fd.get("details") ?? ""));
-      postData.append(
-        "_subject",
-        `New service request — ${String(fd.get("service") ?? "")}`,
-      );
-      postData.append("_template", "table");
-      postData.append("_captcha", "false");
-
-      const res = await fetch(
-        `https://formsubmit.co/ajax/${encodeURIComponent(to)}`,
-        {
-          method: "POST",
-          body: postData,
-        },
-      );
-
-      if (!res.ok) {
-        throw new Error(`FormSubmit responded with ${res.status}`);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const hash = window.location.hash;
+    if (hash) {
+      const element = document.querySelector(hash);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
       }
-
-      const json = (await res.json()) as { success?: boolean };
-      if (json.success === false) throw new Error("FormSubmit failure");
-
-      toast.success("Request sent — we'll call you back shortly.", {
-        description: `For anything urgent, call ${PHONE}.`,
-      });
-      form.reset();
-      setService(serviceOptions[0]);
-    } catch (err) {
-      toast.error("Sorry, that didn't go through.", {
-        description: `Please call ${PHONE} instead.`,
-      });
-      console.error(err);
-    } finally {
-      setSending(false);
     }
+  }, []);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitted(true);
+    setTimeout(() => setSubmitted(false), 4000);
   };
 
   return (
-    <div className="min-h-screen">
-      {/* Top bar */}
-      <div className="bg-ink text-ink-foreground">
-        <div className="mx-auto flex max-w-6xl items-center justify-center gap-2 px-5 py-2 text-center text-xs font-semibold uppercase tracking-widest sm:text-sm">
-          <Clock className="size-4 text-accent" />
-          24/7 emergency plumbing in Papatoetoe · {PHONE}
-        </div>
+    <div className="min-h-screen bg-background text-foreground font-body">
+      {/* Sticky Mobile Call CTA */}
+      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] max-w-md md:hidden">
+        <a
+          href={PHONE_HREF}
+          className="flex items-center justify-center gap-2 bg-primary py-4 px-6 rounded-xl text-primary-foreground font-semibold shadow-xl ring-2 ring-primary/20 transition-transform active:scale-95"
+        >
+          <Phone className="size-4 shrink-0" />
+          Call for Emergency Repair
+        </a>
       </div>
 
-      {/* Header */}
-      <header className="sticky top-0 z-40 border-b border-border bg-card/95 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-3">
-          <a
-            href="#top"
-            className="font-display text-lg font-bold uppercase leading-tight sm:text-xl"
-          >
-            Papatoetoe<span className="text-accent"> Plumbing & Gas</span>
-          </a>
-          <div className="flex items-center gap-2">
-            <Button asChild variant="call" size="lg">
-              <a href={TEL}>
-                <Phone /> Call
-              </a>
-            </Button>
-            <Button
-              asChild
-              variant="default"
-              size="lg"
-              className="hidden sm:inline-flex"
+      {/* Navigation */}
+      <nav className="sticky top-0 z-40 bg-background/80 backdrop-blur-md border-b border-border">
+        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+          <span className="font-sans font-semibold tracking-tight text-lg uppercase">
+            Roofing <span className="text-primary">Auckland</span>
+          </span>
+          <div className="hidden md:flex items-center gap-6">
+            <span className="text-sm font-medium text-muted-foreground">
+              Qualified & Insured
+            </span>
+            <a
+              href={PHONE_HREF}
+              className="text-sm font-semibold text-primary hover:text-primary/80 transition-colors"
             >
-              <a href="#request">Request service</a>
-            </Button>
+              09 887 9059
+            </a>
+          </div>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <header className="py-12 md:py-24">
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-12 items-start">
+          <div className="space-y-8">
+            <div className="space-y-4">
+              <span className="inline-block px-3 py-1 bg-accent text-accent-foreground text-xs font-semibold rounded-full uppercase tracking-wider">
+                24/7 Auckland Wide Service
+              </span>
+              <h1 className="font-sans text-4xl md:text-6xl font-semibold leading-tight text-balance max-w-[20ch]">
+                Weatherproof your home with Auckland’s roofing specialists
+              </h1>
+              <p className="text-lg text-muted-foreground text-pretty max-w-[48ch]">
+                From urgent leak repairs to full long-run metal re-roofing. We
+                provide upfront pricing and dependable craftsmanship for local
+                homeowners.
+              </p>
+            </div>
+
+            <div className="flex flex-wrap gap-4">
+              <a
+                href={PHONE_HREF}
+                className="inline-flex items-center bg-primary text-primary-foreground py-3 pr-5 pl-4 rounded-lg text-sm font-semibold ring-1 ring-primary transition-all hover:bg-clay-light"
+              >
+                <Phone className="size-4 shrink-0 mr-2" />
+                Call {PHONE}
+              </a>
+              <a
+                href="#request"
+                className="inline-flex items-center bg-secondary text-secondary-foreground py-3 pr-5 pl-4 rounded-lg text-sm font-semibold ring-1 ring-border transition-all hover:bg-secondary/80"
+              >
+                Request Service
+              </a>
+            </div>
+
+            <div className="flex gap-8 border-t border-border pt-8">
+              <div className="flex items-start gap-3">
+                <Clock className="size-5 text-primary mt-0.5" />
+                <div>
+                  <p className="text-2xl font-semibold font-sans">24/7</p>
+                  <p className="text-xs text-muted-foreground uppercase tracking-widest">
+                    Emergency response
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <Shield className="size-5 text-primary mt-0.5" />
+                <div>
+                  <p className="text-2xl font-semibold font-sans">15yr</p>
+                  <p className="text-xs text-muted-foreground uppercase tracking-widest">
+                    Workmanship warranty
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Quick Request Form */}
+          <div
+            id="request"
+            className="bg-card p-8 rounded-2xl ring-1 ring-border shadow-sm scroll-mt-24"
+          >
+            <h2 className="font-sans text-xl font-semibold mb-2">
+              Quick Request
+            </h2>
+            <p className="text-sm text-muted-foreground mb-6">
+              Leave your details and we will call you back within 2 hours.
+            </p>
+            {submitted ? (
+              <div className="flex flex-col items-center justify-center gap-3 py-10 text-center">
+                <CheckCircle className="size-10 text-primary" />
+                <p className="font-semibold font-sans">Request received</p>
+                <p className="text-sm text-muted-foreground">
+                  We will call you back shortly.
+                </p>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                  <label className="block text-xs font-semibold uppercase tracking-wider mb-1.5">
+                    Full Name
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="e.g. James Cook"
+                    value={form.name}
+                    onChange={(e) =>
+                      setForm((f) => ({ ...f, name: e.target.value }))
+                    }
+                    className="w-full bg-background ring-1 ring-input rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring transition-shadow"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold uppercase tracking-wider mb-1.5">
+                    Phone Number
+                  </label>
+                  <input
+                    type="tel"
+                    required
+                    placeholder="021 000 0000"
+                    value={form.phone}
+                    onChange={(e) =>
+                      setForm((f) => ({ ...f, phone: e.target.value }))
+                    }
+                    className="w-full bg-background ring-1 ring-input rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring transition-shadow"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold uppercase tracking-wider mb-1.5">
+                    Suburb
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="e.g. Takapuna"
+                    value={form.suburb}
+                    onChange={(e) =>
+                      setForm((f) => ({ ...f, suburb: e.target.value }))
+                    }
+                    className="w-full bg-background ring-1 ring-input rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring transition-shadow"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold uppercase tracking-wider mb-1.5">
+                    What do you need?
+                  </label>
+                  <select
+                    value={form.service}
+                    onChange={(e) =>
+                      setForm((f) => ({ ...f, service: e.target.value }))
+                    }
+                    className="w-full bg-background ring-1 ring-input rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring transition-shadow"
+                  >
+                    <option>Emergency roofing</option>
+                    <option>Leak repair</option>
+                    <option>Re-roofing</option>
+                    <option>Guttering & spouting</option>
+                    <option>Roof painting</option>
+                    <option>Other (describe below)</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold uppercase tracking-wider mb-1.5">
+                    Message
+                  </label>
+                  <textarea
+                    placeholder="e.g. Leak in lounge ceiling after heavy rain"
+                    rows={3}
+                    value={form.message}
+                    onChange={(e) =>
+                      setForm((f) => ({ ...f, message: e.target.value }))
+                    }
+                    className="w-full bg-background ring-1 ring-input rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring transition-shadow"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="w-full bg-primary text-primary-foreground py-3 rounded-lg font-semibold text-sm transition-all hover:bg-clay-light"
+                >
+                  Send Request
+                </button>
+              </form>
+            )}
+            <div className="mt-6 text-center text-xs text-muted-foreground">
+              For emergencies, call instead:{" "}
+              <a
+                href={PHONE_HREF}
+                className="font-semibold text-primary hover:underline"
+              >
+                {PHONE}
+              </a>
+            </div>
           </div>
         </div>
       </header>
 
-      {/* Hero */}
-      <section id="top" className="hero-surface text-primary-foreground">
-        <div className="mx-auto grid max-w-6xl gap-10 px-5 py-14 sm:py-20 lg:grid-cols-[1.05fr_0.95fr]">
-          <div>
-            <p className="inline-flex items-center gap-2 rounded-full bg-primary-foreground/10 px-3 py-1 text-xs font-semibold uppercase tracking-widest">
-              <ShieldCheck className="size-4 text-accent" /> Qualified, insured,
-              local
-            </p>
-            <h1 className="mt-5 text-4xl font-bold uppercase leading-[0.95] sm:text-6xl">
-              Need a plumber in Papatoetoe?
-            </h1>
-            <p className="mt-5 max-w-xl text-lg text-primary-foreground/80">
-              Call now for urgent help, or send a quick request and we will get
-              back to you.
-            </p>
-            <div className="mt-7 flex flex-wrap gap-3">
-              <Button asChild variant="call" size="xl">
-                <a href={TEL}>
-                  <Phone /> Call {PHONE}
-                </a>
-              </Button>
-              <Button asChild variant="onDark" size="xl">
-                <a href="#request">Request online</a>
-              </Button>
-            </div>
-            <dl className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-3">
-              {[
-                { icon: Clock, label: "24/7 emergencies" },
-                { icon: Receipt, label: "Upfront pricing" },
-                { icon: Flame, label: "Plumbing & gas" },
-              ].map((item) => (
-                <div
-                  key={item.label}
-                  className="flex items-center gap-3 rounded-lg border border-primary-foreground/15 bg-primary-foreground/5 px-4 py-3"
-                >
-                  <item.icon className="size-5 text-accent" />
-                  <dt className="text-sm font-semibold uppercase tracking-wide">
-                    {item.label}
-                  </dt>
-                </div>
-              ))}
-            </dl>
-            {/* Static rating removed: use SociableKit widget below */}
-          </div>
-
-          {/* Quick request form */}
-          <div id="request" className="scroll-mt-24">
-            <form
-              onSubmit={onSubmit}
-              className="rounded-2xl bg-card p-6 text-card-foreground shadow-lift sm:p-7"
-            >
-              <h2 className="text-2xl font-bold uppercase">Quick request</h2>
-              <p className="mt-1 text-sm text-muted-foreground">
-                Leave your details and we will call you back.
-              </p>
-
-              <div className="mt-5 grid gap-4">
-                <div className="grid gap-2">
-                  <Label htmlFor="name">Name</Label>
-                  <Input id="name" name="name" required autoComplete="name" />
-                </div>
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <div className="grid gap-2">
-                    <Label htmlFor="phone">Phone</Label>
-                    <Input
-                      id="phone"
-                      name="phone"
-                      type="tel"
-                      required
-                      autoComplete="tel"
-                    />
-                  </div>
-                  <div className="grid gap-2">
-                    <Label htmlFor="suburb">Suburb</Label>
-                    <Input
-                      id="suburb"
-                      name="suburb"
-                      placeholder="e.g. Takapuna"
-                    />
-                  </div>
-                </div>
-                <div className="grid gap-2">
-                  <Label htmlFor="service">What do you need?</Label>
-                  <select
-                    id="service"
-                    name="service"
-                    value={service}
-                    onChange={(e) => setService(e.target.value)}
-                    className="h-10 rounded-md border border-input bg-background px-3 text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-                  >
-                    {serviceOptions.map((o) => (
-                      <option key={o} value={o}>
-                        {o}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div className="grid gap-2">
-                  <Label htmlFor="details">Details</Label>
-                  <Textarea
-                    id="details"
-                    name="details"
-                    rows={3}
-                    placeholder="e.g. Leak in outdoor tap"
-                  />
-                </div>
-                <Button
-                  type="submit"
-                  variant="call"
-                  size="xl"
-                  className="w-full"
-                  disabled={sending}
-                >
-                  <Send /> {sending ? "Sending…" : "Send request"}
-                </Button>
-                <p className="text-center text-sm text-muted-foreground">
-                  For emergencies, call instead:{" "}
-                  <a
-                    href={TEL}
-                    className="font-semibold text-primary underline underline-offset-4"
-                  >
-                    {PHONE}
-                  </a>
+      {/* Trust / Common Jobs */}
+      <section className="py-16 bg-secondary border-y border-border">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            <div className="flex items-start gap-4">
+              <div className="size-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                <Shield className="size-5 text-primary" />
+              </div>
+              <div>
+                <h3 className="font-sans font-semibold mb-1">Qualified & Insured</h3>
+                <p className="text-sm text-muted-foreground">
+                  Licensed roofing practitioners with full public liability cover.
                 </p>
               </div>
-            </form>
+            </div>
+            <div className="flex items-start gap-4">
+              <div className="size-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                <Droplets className="size-5 text-primary" />
+              </div>
+              <div>
+                <h3 className="font-sans font-semibold mb-1">Upfront Pricing</h3>
+                <p className="text-sm text-muted-foreground">
+                  No hidden costs. Clear quotes before any work begins.
+                </p>
+              </div>
+            </div>
+            <div className="flex items-start gap-4">
+              <div className="size-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                <MapPin className="size-5 text-primary" />
+              </div>
+              <div>
+                <h3 className="font-sans font-semibold mb-1">Local Auckland</h3>
+                <p className="text-sm text-muted-foreground">
+                  North Shore based. We know Auckland roofs and Auckland weather.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h2 className="font-sans text-2xl font-semibold mb-6">Common jobs</h2>
+            <div className="flex flex-wrap gap-3">
+              {commonJobs.map((job) => (
+                <span
+                  key={job}
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-background rounded-full text-sm font-medium ring-1 ring-border"
+                >
+                  <Wrench className="size-3.5 text-primary" />
+                  {job}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Common jobs */}
-      <section className="py-16 sm:py-20">
-        <div className="mx-auto max-w-6xl px-5">
-          <h2 className="text-3xl font-bold uppercase sm:text-4xl">
-            Common jobs
-          </h2>
-          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {jobs.map((job) => (
+      {/* Services Grid */}
+      <section className="py-24 bg-background">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="mb-16">
+            <h2 className="font-sans text-3xl font-semibold text-balance mb-4">
+              Specialist Services
+            </h2>
+            <p className="text-muted-foreground max-w-[48ch] text-pretty">
+              From routine maintenance to complex structural repairs.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {services.map((service) => (
               <div
-                key={job.title}
-                className="rounded-xl border border-border bg-card p-6 shadow-card transition-shadow hover:shadow-lift"
+                key={service.title}
+                className="bg-card p-6 rounded-2xl ring-1 ring-border hover:shadow-md transition-shadow"
               >
-                <span className="flex size-11 items-center justify-center rounded-lg bg-accent text-accent-foreground">
-                  <job.icon className="size-5" />
-                </span>
-                <h3 className="mt-4 text-xl font-bold uppercase">
-                  {job.title}
+                <img
+                  src={service.image}
+                  alt={service.alt}
+                  loading="lazy"
+                  width={800}
+                  height={600}
+                  className="w-full aspect-[4/3] object-cover rounded-xl bg-muted mb-6"
+                />
+                <h3 className="font-sans font-semibold text-lg mb-2">
+                  {service.title}
                 </h3>
-                <p className="mt-1 text-sm text-muted-foreground">{job.text}</p>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  {service.description}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Recent work removed */}
-
-      {/* Recent work */}
-      <section className="border-y border-border bg-secondary py-16 sm:py-20">
-        <div className="mx-auto max-w-6xl px-5">
-          <h2 className="text-3xl font-bold uppercase sm:text-4xl">
-            Recent work
-          </h2>
-          <p className="mt-2 text-muted-foreground">Real jobs completed across Papatoetoe.</p>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {gallery.map((img) => (
-              <img
-                key={img.src}
-                src={img.src}
-                alt={img.alt}
-                loading="lazy"
-                className="h-64 w-full rounded-xl object-cover shadow-card"
-              />
-            ))}
+      {/* Reviews */}
+      <section id="reviews" className="py-24 bg-secondary">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-4">
+            <h2 className="font-sans text-3xl font-semibold">
+              What Aucklanders Say
+            </h2>
+            <div className="flex items-center gap-3">
+              <span className="font-sans font-semibold text-xl">Google</span>
+              <div className="flex items-center gap-2 px-3 py-1 bg-background rounded-full ring-1 ring-border">
+                <span className="font-semibold">5.0</span>
+                <div className="flex text-primary text-sm">★★★★★</div>
+              </div>
+            </div>
           </div>
-        </div>
-      </section>
 
-      {/* Service areas */}
-      <section className="py-16 sm:py-20">
-        <div className="mx-auto max-w-6xl px-5">
-          <h2 className="flex items-center gap-3 text-3xl font-bold uppercase sm:text-4xl">
-            <MapPin className="size-7 text-accent" /> Service areas
-          </h2>
-          <ul className="mt-7 flex flex-wrap gap-2">
-            {suburbs.map((s) => (
-              <li
-                key={s}
-                className="rounded-full border border-border bg-card px-4 py-1.5 text-sm font-medium"
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 divide-y md:divide-y-0 md:divide-x divide-border mb-12">
+            {reviews.map((review) => (
+              <div
+                key={review.name}
+                className="py-8 md:py-0 md:px-8 first:md:pl-0 last:md:pr-0"
               >
-                {s}
-              </li>
+                <div className="flex text-primary text-sm mb-4">★★★★★</div>
+                <p className="text-foreground/80 italic text-pretty mb-6">
+                  “{review.text}”
+                </p>
+                <div className="flex items-center gap-3">
+                  <div className="size-10 rounded-full bg-muted flex items-center justify-center font-sans font-semibold text-sm text-muted-foreground">
+                    {review.name[0]}
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold">{review.name}</p>
+                    <p className="text-xs text-muted-foreground">{review.time}</p>
+                  </div>
+                </div>
+              </div>
             ))}
-          </ul>
-        </div>
-      </section>
+          </div>
 
-      {/* Final CTA */}
-      <section className="hero-surface py-14 text-primary-foreground">
-        <div className="mx-auto flex max-w-6xl flex-col items-center gap-5 px-5 text-center">
-          <h2 className="text-3xl font-bold uppercase sm:text-4xl">
-            Water where it shouldn't be? Call us now.
-          </h2>
-          <Button asChild variant="call" size="xl">
-            <a href={TEL}>
-              <Phone /> Call {PHONE}
-            </a>
-          </Button>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="bg-ink py-10 text-ink-foreground">
-        <div className="mx-auto flex max-w-6xl flex-col gap-2 px-5 text-center sm:flex-row sm:items-center sm:justify-between sm:text-left">
-          <div>
-            <p className="font-display text-lg font-bold uppercase">
-              Papatoetoe Plumbing & Gas
-            </p>
-            <p className="text-sm text-ink-foreground/70">
-              24/7 emergency plumbing.
+          {/* SociableKIT live widget container */}
+          <div className="bg-card rounded-2xl ring-1 ring-border p-6 md:p-8">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="font-sans font-semibold">Google Reviews</h3>
+              <a
+                href="https://www.google.com/search?q=Roofing+Auckland"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm font-semibold text-primary hover:underline"
+              >
+                Read all reviews
+              </a>
+            </div>
+            <GoogleReviews />
+            <p className="text-xs text-muted-foreground mt-4 text-center">
+              Live reviews powered by Google
             </p>
           </div>
-          <a href={TEL} className="text-xl font-bold text-accent">
-            {PHONE}
-          </a>
+        </div>
+      </section>
+
+      {/* Service Areas Footer */}
+      <footer className="py-24 bg-foreground text-muted-foreground">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-16">
+            <div className="space-y-6">
+              <span className="font-sans font-semibold tracking-tight text-lg uppercase text-background">
+                Roofing <span className="text-primary">Auckland</span>
+              </span>
+              <p className="text-sm max-w-[30ch]">
+                Licensed roofing practitioners serving the greater Auckland region
+                with 24/7 emergency response.
+              </p>
+              <div className="space-y-2">
+                <p className="text-sm font-semibold text-background flex items-center gap-2">
+                  <Phone className="size-4" />
+                  {PHONE}
+                </p>
+                <p className="text-sm flex items-center gap-2">
+                  <Home className="size-4" />
+                  North Shore & Auckland wide
+                </p>
+              </div>
+            </div>
+            <div>
+              <h3 className="text-background text-sm font-semibold uppercase tracking-widest mb-8">
+                Service Areas
+              </h3>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-4 gap-y-2 text-xs">
+                {serviceAreas.map((area) => (
+                  <span key={area}>{area}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div className="mt-24 pt-8 border-t border-background/10 text-[10px] uppercase tracking-widest text-center md:text-left">
+            &copy; {new Date().getFullYear()} Roofing Auckland. Licensed Building
+            Practitioner. Qualified & insured.
+          </div>
         </div>
       </footer>
 
-      {/* Mobile sticky call bar */}
-      <div className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-2 gap-2 border-t border-border bg-card p-3 sm:hidden">
-        <Button asChild variant="call" size="lg">
-          <a href={TEL}>
-            <Phone /> Call now
-          </a>
-        </Button>
-        <Button asChild variant="default" size="lg">
-          <a href="#request">Request</a>
-        </Button>
+      {/* Desktop sticky call bar */}
+      <div className="hidden md:flex fixed bottom-0 left-0 right-0 z-40 bg-background/95 backdrop-blur-md border-t border-border py-3 px-6 items-center justify-center gap-6">
+        <span className="text-sm font-medium text-muted-foreground">
+          24/7 emergency roofing
+        </span>
+        <a
+          href={PHONE_HREF}
+          className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-clay-light transition-colors"
+        >
+          <Phone className="size-4" />
+          {PHONE}
+        </a>
       </div>
-      <div className="h-16 sm:hidden" />
     </div>
   );
 }

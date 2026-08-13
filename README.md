@@ -1,12 +1,12 @@
-# Papatoetoe Plumbing Hub
+# North Shore Plumbing Now
 
 MAKE A HIGHLY CONVERTING LANDING PLUMBING WEBSITE ONE PAGER
 
-24/7 emergency plumbing in Papatoetoe
+24/7 emergency plumbing on the North Shore
 
-64 9 8844104
+64 9 8879059
 
-PAPATOETOE PLUMBING & GAS
+NORTH SHORE PLUMBING & GAS
 
 Call
 
@@ -14,11 +14,11 @@ Request service
 
 Qualified, insured, local
 
-Need a plumber in Papatoetoe?
+Need a plumber on the North Shore?
 
 Call now for urgent help, or send a quick request and we will get back to you.
 
-Call 64 9 8844104
+Call 64 9 8879059
 
 Request online
 
@@ -48,13 +48,13 @@ e.g. Leak in outdoor tap
 
 Send request
 
-For emergencies, call instead: 64 9 8844104
+For emergencies, call instead: 64 9 8879059
 
 What our customers say
 
 Google
 
-Papatoetoe Plumbing & Gas
+North Shore Plumbing & Gas
 
 5.0
 
@@ -84,7 +84,7 @@ Mrs
 
 1 week ago
 
-Highly recommend the great communication, they were quick to find me a booking and arrived on time. It’s rare to see workers clean up their mess properly these days but Papatoetoe Plumbing impressed me! Give them a shot
+Highly recommend the great communication, they were quick to find me a booking and arrived on time. It’s rare to see workers clean up their mess properly these days but North Shore Plumbing impressed me! Give them a shot
 
 Price assessment
 
@@ -202,7 +202,7 @@ reshee
 
 1 week ago
 
-I had a great experience with Papatoetoe Plumbing & Gas. From the very first call these guys were quick and efficient and communicated really well. Quality of the work was excellent too. Top notch service!
+I had a great experience with north shore plumbing and gas. From the very first call these guys were quick and efficient and communicated really well. Quality of the work was excellent too. Top notch service!
 
 Response from the owner
 
@@ -285,8 +285,6 @@ Northcross
 Pinehill
 
 Rothesay Bay
-<div class="sk-ww-google-reviews" data-embed-id="25705141"></div>
-<script src="https://widgets.sociablekit.com/google-reviews/widget.js" defer></script>
 
 Rosedale
 
@@ -304,19 +302,43 @@ Wairau Valley
 
 Windsor Park
 
-PAPATOETOE PLUMBING & GAS
+NORTH SHORE PLUMBING & GAS
 
 24/7 emergency plumbing.
 
-64 9 8844104
+64 9 8879059
 
-<!-- SociableKit dynamic script removed; using embed div + script above -->
+review part of it code:
+
+useEffect(() => {
+
+  const scriptId = "sociablekit-google-reviews";
+
+  if (document.getElementById(scriptId)) {
+
+    return;
+
+  }
+
+  const script = document.createElement("script");
+
+  script.id = scriptId;
+
+  script.src = "https://widgets.sociablekit.com/google-reviews/widget.js";
+
+  script.defer = true;
+
+  document.body.appendChild(script);
+
+}, []);
+
+do it but for “Roofing Auckland"
 
 This project was built with [Lovable](https://lovable.dev).
 
 ## Build with Lovable
 
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/e5f9dccc-7aef-416f-a3c6-5234b7646ad6).
+Continue developing this project in the [Lovable editor](https://lovable.dev/projects/755ecbed-ee8f-47f9-a93d-ac7924156fcb).
 
 - **Ship faster**: describe what you want to build and Lovable handles the code.
 - **Stay in sync**: every change made in Lovable is committed straight to this repository.

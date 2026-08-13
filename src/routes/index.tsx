@@ -144,10 +144,52 @@ function Index() {
     }
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 4000);
+
+    try {
+      const response = await fetch(
+        "https://formsubmit.co/ajax/samuelhowell247@gmail.com",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            name: form.name,
+            phone: form.phone,
+            suburb: form.suburb,
+            service: form.service,
+            details: form.message,
+            _subject: `New service request — ${form.service}`,
+            _template: "table",
+          }),
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error(`FormSubmit responded with ${response.status}`);
+      }
+
+      const json = (await response.json()) as { success?: boolean };
+      if (json.success === false) {
+        throw new Error("FormSubmit rejected the request");
+      }
+
+      setSubmitted(true);
+      setTimeout(() => setSubmitted(false), 4000);
+      setForm({
+        name: "",
+        phone: "",
+        suburb: "",
+        service: "Emergency roofing",
+        message: "",
+      });
+    } catch (error) {
+      console.error("FormSubmit error:", error);
+      alert("We couldn't send your request right now. Please call 09 887 9059 instead.");
+    }
   };
 
   return (

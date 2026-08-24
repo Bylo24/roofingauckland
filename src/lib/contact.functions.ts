@@ -4,8 +4,16 @@ import { z } from "zod";
 const contactSchema = z.object({
   name: z.string().trim().min(1, "Name is required").max(100),
   phone: z.string().trim().min(4, "Phone is required").max(40),
+  email: z
+    .string()
+    .trim()
+    .max(254)
+    .refine((value) => value === "" || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value), "Enter a valid email")
+    .optional()
+    .default(""),
   suburb: z.string().trim().max(100).optional().default(""),
   service: z.string().trim().min(1).max(100),
+  preferredTime: z.string().trim().max(50).optional().default(""),
   details: z.string().trim().max(2000).optional().default(""),
 });
 
@@ -25,8 +33,10 @@ export const sendContactRequest = createServerFn({ method: "POST" })
         body: JSON.stringify({
           name: data.name,
           phone: data.phone,
+          email: data.email,
           suburb: data.suburb,
           service: data.service,
+          preferredTime: data.preferredTime,
           details: data.details,
           _subject: `New service request — ${data.service}`,
           _template: "table",

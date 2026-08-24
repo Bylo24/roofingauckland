@@ -127,8 +127,10 @@ function Index() {
   const [form, setForm] = useState({
     name: "",
     phone: "",
+    email: "",
     suburb: "",
     service: "Emergency roofing",
+    preferredTime: "",
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
@@ -159,8 +161,10 @@ function Index() {
           body: JSON.stringify({
             name: form.name,
             phone: form.phone,
+            email: form.email,
             suburb: form.suburb,
             service: form.service,
+            preferredTime: form.preferredTime,
             details: form.message,
             _subject: `New service request — ${form.service}`,
             _template: "table",
@@ -182,8 +186,10 @@ function Index() {
       setForm({
         name: "",
         phone: "",
+        email: "",
         suburb: "",
         service: "Emergency roofing",
+        preferredTime: "",
         message: "",
       });
     } catch (error) {
@@ -336,6 +342,20 @@ function Index() {
                 </div>
                 <div>
                   <label className="block text-xs font-semibold uppercase tracking-wider mb-1.5">
+                    Email <span className="font-normal normal-case tracking-normal text-muted-foreground">(optional)</span>
+                  </label>
+                  <input
+                    type="email"
+                    placeholder="e.g. james@example.com"
+                    value={form.email}
+                    onChange={(e) =>
+                      setForm((f) => ({ ...f, email: e.target.value }))
+                    }
+                    className="w-full bg-background ring-1 ring-input rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring transition-shadow"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold uppercase tracking-wider mb-1.5">
                     Suburb
                   </label>
                   <input
@@ -366,6 +386,23 @@ function Index() {
                     <option>Guttering & spouting</option>
                     <option>Roof painting</option>
                     <option>Other (describe below)</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold uppercase tracking-wider mb-1.5">
+                    Best time to call <span className="font-normal normal-case tracking-normal text-muted-foreground">(optional)</span>
+                  </label>
+                  <select
+                    value={form.preferredTime}
+                    onChange={(e) =>
+                      setForm((f) => ({ ...f, preferredTime: e.target.value }))
+                    }
+                    className="w-full bg-background ring-1 ring-input rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring transition-shadow"
+                  >
+                    <option value="">Any time</option>
+                    <option>Morning (8am–12pm)</option>
+                    <option>Afternoon (12pm–5pm)</option>
+                    <option>Evening (5pm–8pm)</option>
                   </select>
                 </div>
                 <div>

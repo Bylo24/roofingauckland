@@ -309,9 +309,9 @@ function Index() {
                 </p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-3">
+              <form onSubmit={handleSubmit} className="space-y-4 md:space-y-3">
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider mb-1">
+                  <label className="block text-xs font-semibold uppercase tracking-wider mb-1.5 md:mb-1">
                     Full Name
                   </label>
                   <input
@@ -322,11 +322,11 @@ function Index() {
                     onChange={(e) =>
                       setForm((f) => ({ ...f, name: e.target.value }))
                     }
-                    className="w-full bg-background ring-1 ring-input rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-ring transition-shadow"
+                    className="w-full bg-background ring-1 ring-input rounded-lg px-4 py-3 md:py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-ring transition-shadow"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider mb-1">
+                  <label className="block text-xs font-semibold uppercase tracking-wider mb-1.5 md:mb-1">
                     Phone Number
                   </label>
                   <input
@@ -337,11 +337,11 @@ function Index() {
                     onChange={(e) =>
                       setForm((f) => ({ ...f, phone: e.target.value }))
                     }
-                    className="w-full bg-background ring-1 ring-input rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-ring transition-shadow"
+                    className="w-full bg-background ring-1 ring-input rounded-lg px-4 py-3 md:py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-ring transition-shadow"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider mb-1">
+                  <label className="block text-xs font-semibold uppercase tracking-wider mb-1.5 md:mb-1">
                     Email <span className="font-normal normal-case tracking-normal text-muted-foreground">(optional)</span>
                   </label>
                   <input
@@ -351,11 +351,11 @@ function Index() {
                     onChange={(e) =>
                       setForm((f) => ({ ...f, email: e.target.value }))
                     }
-                    className="w-full bg-background ring-1 ring-input rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-ring transition-shadow"
+                    className="w-full bg-background ring-1 ring-input rounded-lg px-4 py-3 md:py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-ring transition-shadow"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider mb-1">
+                  <label className="block text-xs font-semibold uppercase tracking-wider mb-1.5 md:mb-1">
                     Suburb
                   </label>
                   <input
@@ -366,11 +366,11 @@ function Index() {
                     onChange={(e) =>
                       setForm((f) => ({ ...f, suburb: e.target.value }))
                     }
-                    className="w-full bg-background ring-1 ring-input rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-ring transition-shadow"
+                    className="w-full bg-background ring-1 ring-input rounded-lg px-4 py-3 md:py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-ring transition-shadow"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider mb-1">
+                  <label className="block text-xs font-semibold uppercase tracking-wider mb-1.5 md:mb-1">
                     What do you need?
                   </label>
                   <select
@@ -378,7 +378,7 @@ function Index() {
                     onChange={(e) =>
                       setForm((f) => ({ ...f, service: e.target.value }))
                     }
-                    className="w-full bg-background ring-1 ring-input rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-ring transition-shadow"
+                    className="w-full bg-background ring-1 ring-input rounded-lg px-4 py-3 md:py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-ring transition-shadow"
                   >
                     <option>Emergency roofing</option>
                     <option>Leak repair</option>
@@ -389,7 +389,7 @@ function Index() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider mb-1.5">
+                  <label className="block text-xs font-semibold uppercase tracking-wider mb-1.5 md:mb-1">
                     Best time to call <span className="font-normal normal-case tracking-normal text-muted-foreground">(optional)</span>
                   </label>
                   <select
@@ -397,7 +397,7 @@ function Index() {
                     onChange={(e) =>
                       setForm((f) => ({ ...f, preferredTime: e.target.value }))
                     }
-                    className="w-full bg-background ring-1 ring-input rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring transition-shadow"
+                    className="w-full bg-background ring-1 ring-input rounded-lg px-4 py-3 md:py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-ring transition-shadow"
                   >
                     <option value="">Any time</option>
                     <option>Morning (8am–12pm)</option>
@@ -406,22 +406,22 @@ function Index() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider mb-1.5">
+                  <label className="block text-xs font-semibold uppercase tracking-wider mb-1.5 md:mb-1">
                     Message
                   </label>
                   <textarea
                     placeholder="e.g. Leak in lounge ceiling after heavy rain"
-                    rows={2}
+                    rows={3}
                     value={form.message}
                     onChange={(e) =>
                       setForm((f) => ({ ...f, message: e.target.value }))
                     }
-                    className="w-full bg-background ring-1 ring-input rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-ring transition-shadow"
+                    className="w-full bg-background ring-1 ring-input rounded-lg px-4 py-3 md:py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-ring transition-shadow"
                   />
                 </div>
                 <button
                   type="submit"
-                  className="w-full bg-primary text-primary-foreground py-2.5 rounded-lg font-semibold text-sm transition-all hover:bg-clay-light"
+                  className="w-full bg-primary text-primary-foreground py-3 md:py-2.5 rounded-lg font-semibold text-sm transition-all hover:bg-clay-light"
                 >
                   Send Request
                 </button>

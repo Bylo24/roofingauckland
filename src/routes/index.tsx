@@ -100,29 +100,6 @@ const serviceAreas = [
   "Windsor Park",
 ];
 
-const reviews = [
-  {
-    name: "Noela",
-    time: "2 weeks ago",
-    text: "Highly recommend! The roofing team was professional, reliable, and completed the job to a very high standard. Communication was excellent from start to finish, arrived on time, and left everything clean and tidy.",
-  },
-  {
-    name: "Logan",
-    time: "1 week ago",
-    text: "A++ we had the team come out with short notice. We had been having trouble with a leak in our roof after heavy rain. The crew had it sorted in no time. Would definitely recommend 👌.",
-  },
-  {
-    name: "Nikora",
-    time: "2 weeks ago",
-    text: "Had to call this crew in to fix someone else’s mistakes on my flashings. I should’ve just got them in the first place. Would highly recommend 10/10.",
-  },
-  {
-    name: "Tracey",
-    time: "3 weeks ago",
-    text: "Fantastic service from start to finish. The team was friendly, professional, and took the time to make sure everything was done to a high standard. Reliable, punctual, and genuinely cared about delivering a great result.",
-  },
-];
-
 function Index() {
   const [form, setForm] = useState({
     name: "",
@@ -560,28 +537,6 @@ function Index() {
             >
               Request a quote
             </a>
-          </div>
-          <div className="mb-10 grid grid-cols-1 gap-4 md:grid-cols-3">
-            {reviews.slice(0, 3).map((review) => (
-              <figure
-                key={review.name}
-                className="bg-card p-5 rounded-xl ring-1 ring-border"
-              >
-                <div className="mb-3 flex items-center justify-between gap-3">
-                  <div className="flex gap-0.5 text-primary" aria-label="Five star review">
-                    {Array.from({ length: 5 }).map((_, index) => (
-                      <Star key={index} className="size-3.5 fill-current" />
-                    ))}
-                  </div>
-                  <figcaption className="text-xs font-semibold text-muted-foreground">
-                    {review.name} · {review.time}
-                  </figcaption>
-                </div>
-                <blockquote className="text-sm leading-relaxed text-foreground">
-                  “{review.text}”
-                </blockquote>
-              </figure>
-            ))}
           </div>
           <div className="bg-card rounded-2xl ring-1 ring-border p-6 md:p-8">
             <GoogleReviews />

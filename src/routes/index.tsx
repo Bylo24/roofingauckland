@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
-import { Phone, Shield, Clock, MapPin, Wrench, Droplets, Home, CheckCircle } from "lucide-react";
+import { Phone, Shield, Clock, MapPin, Wrench, Droplets, Home, CheckCircle, Star } from "lucide-react";
 import roofProfile from "@/assets/roof-profile.jpg";
 import guttering from "@/assets/guttering.jpg";
 import roofRepair from "@/assets/roof-repair.jpg";
@@ -267,6 +267,21 @@ function Index() {
               </a>
             </div>
 
+            <a
+              href="#reviews"
+              className="inline-flex items-center gap-3 text-sm hover:text-primary transition-colors"
+            >
+              <span className="flex gap-0.5 text-primary" aria-label="Five star reviews">
+                {Array.from({ length: 5 }).map((_, index) => (
+                  <Star key={index} className="size-4 fill-current" />
+                ))}
+              </span>
+              <span>
+                <strong className="font-semibold">Trusted by Auckland homeowners</strong>
+                <span className="text-muted-foreground"> · Read our customer reviews</span>
+              </span>
+            </a>
+
             <div className="flex gap-8 border-t border-border pt-8">
               <div className="flex items-start gap-3">
                 <Clock className="size-5 text-primary mt-0.5" />
@@ -527,6 +542,47 @@ function Index() {
       {/* Reviews */}
       <section id="reviews" className="py-24 bg-secondary">
         <div className="max-w-7xl mx-auto px-6">
+          <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+                Customer feedback
+              </p>
+              <h2 className="font-sans text-3xl font-semibold text-balance">
+                Reliable work, recommended locally
+              </h2>
+              <p className="mt-3 max-w-[52ch] text-muted-foreground">
+                See why Auckland homeowners choose us for clear communication, tidy work, and dependable repairs.
+              </p>
+            </div>
+            <a
+              href="#request"
+              className="inline-flex shrink-0 items-center justify-center rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-clay-light"
+            >
+              Request a quote
+            </a>
+          </div>
+          <div className="mb-10 grid grid-cols-1 gap-4 md:grid-cols-3">
+            {reviews.slice(0, 3).map((review) => (
+              <figure
+                key={review.name}
+                className="bg-card p-5 rounded-xl ring-1 ring-border"
+              >
+                <div className="mb-3 flex items-center justify-between gap-3">
+                  <div className="flex gap-0.5 text-primary" aria-label="Five star review">
+                    {Array.from({ length: 5 }).map((_, index) => (
+                      <Star key={index} className="size-3.5 fill-current" />
+                    ))}
+                  </div>
+                  <figcaption className="text-xs font-semibold text-muted-foreground">
+                    {review.name} · {review.time}
+                  </figcaption>
+                </div>
+                <blockquote className="text-sm leading-relaxed text-foreground">
+                  “{review.text}”
+                </blockquote>
+              </figure>
+            ))}
+          </div>
           <div className="bg-card rounded-2xl ring-1 ring-border p-6 md:p-8">
             <GoogleReviews />
           </div>

@@ -14,7 +14,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Roofing Auckland provides 24/7 emergency roofing, leak repairs, re-roofing, guttering and spouting across the North Shore and greater Auckland. Call +64 9 887 9029.",
+          "Roofing Auckland provides 24/7 emergency roofing, leak repairs, re-roofing, guttering and spouting across all of Auckland. Call +64 9 887 9029.",
       },
       {
         property: "og:title",
@@ -553,8 +553,8 @@ function Index() {
                 Roofing <span className="text-primary">Auckland</span>
               </span>
               <p className="text-sm max-w-[30ch]">
-                Licensed roofing practitioners serving the greater Auckland region
-                with 24/7 emergency response.
+                Licensed roofing practitioners serving all of Auckland with 24/7
+                emergency response.
               </p>
               <div className="space-y-2">
                 <a
@@ -566,7 +566,7 @@ function Index() {
                 </a>
                 <p className="text-sm flex items-center gap-2">
                   <Home className="size-4" />
-                  North Shore & Auckland wide
+                  All of Auckland
                 </p>
               </div>
             </div>

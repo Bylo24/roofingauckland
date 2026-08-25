@@ -14,7 +14,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Roofing Auckland provides 24/7 emergency roofing, leak repairs, re-roofing, guttering and spouting across the North Shore and greater Auckland. Call 64 9 8879059.",
+          "Roofing Auckland provides 24/7 emergency roofing, leak repairs, re-roofing, guttering and spouting across the North Shore and greater Auckland. Call +64 9 887 9029.",
       },
       {
         property: "og:title",
@@ -31,8 +31,8 @@ export const Route = createFileRoute("/")({
   }),
 });
 
-const PHONE = "64 9 8879059";
-const PHONE_HREF = "tel:6498879059";
+const PHONE = "+64 9 887 9029";
+const PHONE_HREF = "tel:+6498879029";
 
 const services = [
   {
@@ -194,7 +194,7 @@ function Index() {
       });
     } catch (error) {
       console.error("FormSubmit error:", error);
-      alert("We couldn't send your request right now. Please call 09 887 9059 instead.");
+      alert("We couldn't send your request right now. Please call +64 9 887 9029 instead.");
     }
   };
 

@@ -208,7 +208,7 @@ function Index() {
           aria-label="Emergency call"
         >
           <Phone className="size-4 shrink-0" />
-          Call for Emergency Repair
+          Call {PHONE}
         </a>
       </div>
 
@@ -260,11 +260,11 @@ function Index() {
                 Call {PHONE}
               </a>
               <a
-                className="flex items-center justify-center gap-2 bg-primary py-4 px-6 rounded-xl text-primary-foreground font-semibold shadow-xl ring-2 ring-primary/20 transition-transform active:scale-95"
+                href="#request"
                 className="inline-flex items-center bg-secondary text-secondary-foreground py-3 pr-5 pl-4 rounded-lg text-sm font-semibold ring-1 ring-border transition-all hover:bg-secondary/80"
               >
                 Request Service
-                Call {PHONE}
+              </a>
             </div>
 
             <div className="flex gap-8 border-t border-border pt-8">

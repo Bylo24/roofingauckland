@@ -14,7 +14,7 @@ const contactSchema = z.object({
   suburb: z.string().trim().max(100).optional().default(""),
   service: z.string().trim().min(1).max(100),
   preferredTime: z.string().trim().max(50).optional().default(""),
-  details: z.string().trim().max(2000).optional().default(""),
+  details: z.string().trim().min(10, "Please add a few details about your roof issue").max(2000),
 });
 
 export const sendContactRequest = createServerFn({ method: "POST" })

@@ -643,6 +643,19 @@ function Index() {
               Auckland&apos;s highest-rated roofing team. We provide upfront pricing,
               a 15-year workmanship guarantee, and 24/7 emergency response.
             </p>
+            <div className="mt-5 lg:hidden">
+              <div className="card border border-base-200 bg-white p-4 shadow-[0_18px_32px_rgba(15,23,42,0.16)]">
+                <p className="text-xs font-bold uppercase tracking-[0.18em] text-base-content/60">
+                  Roof assessment
+                </p>
+                <h2 className="mt-2 text-xl font-black text-base-content">
+                  Get Your Free Quote Now
+                </h2>
+                <div className="mt-4">
+                  <LeadForm location="hero" />
+                </div>
+              </div>
+            </div>
             <div className="mt-5 flex flex-wrap gap-2">
               {proofPoints.map((point) => (
                 <span

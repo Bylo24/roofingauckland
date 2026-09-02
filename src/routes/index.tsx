@@ -629,7 +629,7 @@ function Index() {
         />
         <div className="absolute inset-0 bg-gradient-to-r from-slate-950/75 via-slate-950/60 to-slate-900/35" />
         <div className="relative mx-auto grid max-w-7xl gap-6 px-3 py-6 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-8 lg:py-10">
-          <div className="order-2 lg:order-1">
+          <div className="order-1 lg:order-1">
             <h1
               className="max-w-3xl text-[clamp(2rem,4vw,3.6rem)] font-black leading-[0.96] tracking-[-0.06em] text-white"
               style={{
@@ -680,7 +680,7 @@ function Index() {
 
           <div
             id="quote"
-            className="card order-1 scroll-mt-24 border border-base-200 bg-white p-4 shadow-[0_20px_40px_rgba(15,23,42,0.16)] sm:p-5 lg:order-2"
+            className="card order-2 scroll-mt-24 border border-base-200 bg-white p-4 shadow-[0_20px_40px_rgba(15,23,42,0.16)] sm:p-5 lg:order-2"
           >
             <p className="text-xs font-bold uppercase tracking-[0.18em] text-base-content/60 sm:text-sm">
               Roof assessment
